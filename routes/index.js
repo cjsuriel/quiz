@@ -23,5 +23,10 @@ router.get('/quizzes/:quizId(\\d+)/edit',  quizController.edit);
 router.put('/quizzes/:quizId(\\d+)',       quizController.update);
 router.delete('/quizzes/:quizId(\\d+)',    quizController.destroy);
 
+//Definición de ruta de /author
+router.get('/author', function(req, res, next) {
+  res.render('author');
+});
+
 
 module.exports = router;
