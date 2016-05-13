@@ -19,6 +19,23 @@ exports.load = function(req, res, next, quizId) {
 
 // GET /quizzes
 exports.index = function(req, res, next) {
+
+	//var buscar = (req.query.search).replace(/ /g, '%') || "";
+	var buscar = req.query.search || "";
+	//var buscar = "Italia";
+
+
+	//FALTA ordenar y cambiar espacios por %
+	if (buscar) {
+	buscar= buscar.replace(' ', '%');
+     models.Quiz.findAll({order: 'question DESC', where: {question: {$like: '%'+buscar+'%'}}})//////ARREGLAR TODO ESTO
+		.then(function(quizzes) {
+			res.render('quizzes/index.ejs', { quizzes: quizzes});
+		})
+		.catch(function(error) {
+			next(error);
+		});
+	} else {
 	models.Quiz.findAll()
 		.then(function(quizzes) {
 			res.render('quizzes/index.ejs', { quizzes: quizzes});
@@ -26,6 +43,7 @@ exports.index = function(req, res, next) {
 		.catch(function(error) {
 			next(error);
 		});
+	}
 };
 
 
