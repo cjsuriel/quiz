@@ -49,6 +49,7 @@ exports.index = function(req, res, next) {
 		if (buscar) {
 			buscar= buscar.replace(' ', '%');
      			models.Quiz.findAll({order: 'question ASC', where: {question: {$like: '%'+buscar+'%'}}})//////ARREGLAR TODO ESTO
+
 			.then(function(quizzes) {
 				res.render('quizzes/index.ejs', { quizzes: quizzes});
 			})

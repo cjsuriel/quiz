@@ -77,7 +77,7 @@ exports.show = function(req, res, next) {
 	var formato = req.params.format || "";
 	if (formato === "json" || formato==="JSON"){
 		res.json({quiz: req.quiz, answer: answer});
-	} else if(req.params.format === "HTML" || req.params.format === "html" || !req.params.format) { res.render('quizzes/show', {quiz: req.quiz, answer: answer});}
+	} else if(req.params.format === "HTML" || req.params.format === "html" || !req.params.format) 			{res.render('quizzes/show', {quiz: req.quiz, answer: answer});}
 };
 
 
