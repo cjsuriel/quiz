@@ -29,21 +29,29 @@ exports.index = function(req, res, next) {
 			buscar= buscar.replace(' ', '%');
      			models.Quiz.findAll({order: 'question ASC', where: {question: {$like: '%'+buscar+'%'}}})//////ARREGLAR TODO ESTO
 			.then(function(quizzes) {
+
 			//res.json('quizzes/index.ejs', { quizzes: quizzes});
 			res.status(200).json('quizzes/index.ejs', { quizzes: quizzes});
+
 		})
 		.catch(function(error) {
 			next(error);
 		});
 	} else {
-		models.Quiz.findAll()
-			.then(function(quizzes) {
-				res.status(200).json('quizzes/index.ejs', { quizzes: quizzes});
-			})
-			.catch(function(error) {
-				next(error);
-			});
-		}
+
+	models.Quiz.findAll()
+		.then(function(quizzes) {
+
+			res.json('quizzes/index.ejs', { quizzes: quizzes});
+
+			res.status(200).json('quizzes/index.ejs', { quizzes: quizzes});
+
+		})
+		.catch(function(error) {
+			next(error);
+		});
+	}
+
 
 	} else if(req.params.format === "HTML" || req.params.format === "html" || !req.params.format) {
 		if (buscar) {
@@ -77,8 +85,8 @@ exports.show = function(req, res, next) {
 	var answer = req.query.answer || '';
 	var formato = req.params.format || "";
 	if (formato === "json" || formato==="JSON"){
-		res.json({quiz: req.quiz, answer: answer});
-	} else if(req.params.format === "HTML" || req.params.format === "html" || !req.params.format){
+		res.json('quizzes/show', {quiz: req.quiz, answer: answer});
+	} else if(req.params.format === "HTML" || req.params.format === "html" || !req.params.format) {
 		res.render('quizzes/show', {quiz: req.quiz, answer: answer});}
 };
 

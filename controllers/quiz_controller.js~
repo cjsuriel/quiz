@@ -29,13 +29,23 @@ exports.index = function(req, res, next) {
 			buscar= buscar.replace(' ', '%');
      			models.Quiz.findAll({order: 'question ASC', where: {question: {$like: '%'+buscar+'%'}}})//////ARREGLAR TODO ESTO
 			.then(function(quizzes) {
+<<<<<<< HEAD
 			//res.json('quizzes/index.ejs', { quizzes: quizzes});
 			res.status(200).json('quizzes/index.ejs', { quizzes: quizzes});
+=======
+
+			res.json('quizzes/index.ejs', { quizzes: quizzes});
+
+			//res.json('quizzes/index.ejs', { quizzes: quizzes});
+			res.status(200).json('quizzes/index.ejs', { quizzes: quizzes});
+
+>>>>>>> 0facdfda781dfb82d675cfa72d59b2b81034b23b
 		})
 		.catch(function(error) {
 			next(error);
 		});
 	} else {
+<<<<<<< HEAD
 		models.Quiz.findAll()
 			.then(function(quizzes) {
 				res.status(200).json('quizzes/index.ejs', { quizzes: quizzes});
@@ -44,6 +54,25 @@ exports.index = function(req, res, next) {
 				next(error);
 			});
 		}
+=======
+	models.Quiz.findAll()
+		.then(function(quizzes) {
+
+			res.json('quizzes/index.ejs', { quizzes: quizzes});
+
+			res.status(200).json('quizzes/index.ejs', { quizzes: quizzes});
+
+		})
+		.catch(function(error) {
+			next(error);
+		});
+	}
+
+	} else {
+
+	} if(req.params.format === "HTML" || req.params.format === "html" || !req.params.format) {
+
+>>>>>>> 0facdfda781dfb82d675cfa72d59b2b81034b23b
 
 	} else if(req.params.format === "HTML" || req.params.format === "html" || !req.params.format) {
 		if (buscar) {
@@ -77,8 +106,17 @@ exports.show = function(req, res, next) {
 	var answer = req.query.answer || '';
 	var formato = req.params.format || "";
 	if (formato === "json" || formato==="JSON"){
+<<<<<<< HEAD
 		res.json({quiz: req.quiz, answer: answer});
 	} else if(req.params.format === "HTML" || req.params.format === "html" || !req.params.format){
+=======
+
+		res.json('quizzes/show', {quiz: req.quiz, answer: answer});
+	} else { res.render('quizzes/show', {quiz: req.quiz, answer: answer});}
+
+		res.json({quiz: req.quiz, answer: answer});
+	} else if(req.params.format === "HTML" || req.params.format === "html" || !req.params.format) {
+>>>>>>> 0facdfda781dfb82d675cfa72d59b2b81034b23b
 		res.render('quizzes/show', {quiz: req.quiz, answer: answer});}
 };
 
